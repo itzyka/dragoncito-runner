@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dragoncito Runner</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: skyblue;
+      font-family: sans-serif;
+    }
+
+    .game {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(skyblue, #a0e0a0);
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      background: green;
+    }
+
+    .cloud {
+      position: absolute;
+      top: 50px;
+      width: 100px;
+      height: 60px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 30px 0 rgb(248, 245, 245), 60px 0 white;
+      animation: moveCloud 30s linear infinite;
+    }
+
+    @keyframes moveCloud {
+      0% { left: 100%; }
+      100% { left: -200px; }
+    }
+
+    .dragon {
+      position: absolute;
+      bottom: 100px;
+      left: 100px;
+      width: 80px;
+      height: 80px;
+      background: url('dragoncito.png') no-repeat center/contain;
+    }
+
+    .obstacle {
+      position: absolute;
+      bottom: 100px;
+      width: 50px;
+      height: 50px;
+      background: url('hongo.png') no-repeat center/contain;
+      animation: moveObstacle 3s linear infinite;
+    }
+
+    @keyframes moveObstacle {
+      0% { left: 100%; }
+      100% { left: -60px; }
+    }
+
+    .jump {
+      animation: jump 0.5s ease;
+    }
+
+    @keyframes jump {
+      0% { bottom: 100px; }
+      50% { bottom: 200px; }
+      100% { bottom: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="game">
+    <div class="cloud"></div>
+    <div class="dragon" id="dragon"></div>
+    <div class="obstacle"></div>
+    <div class="ground"></div>
+  </div>
+
+  <script>
+    const dragon = document.getElementById('dragon');
+
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Space' || e.code === 'ArrowUp') {
+        if (!dragon.classList.contains('jump')) {
+          dragon.classList.add('jump');
+          setTimeout(() => dragon.classList.remove('jump'), 500);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
